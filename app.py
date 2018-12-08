@@ -2,11 +2,15 @@ from flask import Flask,render_template,jsonify,request
 from timefy import *
 import spotipy
 import sys
-app = Flask(__name__)
 
+def create_app():
+    app = Flask(__name__)
+    return app
+
+app = create_app()
 SPOTIFY_CLIENT_ID = "1a5bd897bf2b4e5fa1fc856baad745a8"
 SPOTIPY_CLIENT_SECRET = "640bcb54b8f745b1aa297b95f8075829"
-SPOTIPY_REDIRECT_URI = "http://localhost:5000/login/"
+SPOTIPY_REDIRECT_URI = "http://localhost:8000/login/"
 scope = 'user-library-read playlist-modify-private user-read-private playlist-read-collaborative playlist-read-private'
 token = None
 username = None
@@ -37,7 +41,8 @@ def save():
     link = make_playlist(username,playlistname,length,songs,sp)
     return jsonify(link)
 
-
+if __name__ == "__main__":
+    app.run()
 
 
 
